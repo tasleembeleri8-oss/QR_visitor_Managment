@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Register a visitor{% endblock %}
+{% block content %}
+<div class="eyebrow">Front desk</div>
+<h1>Register a walk-in visitor</h1>
+<p class="lede">For visitors who arrive without a pre-registered pass.</p>
+
+<form class="form-card" method="POST">
+    <div class="field">
+        <label>Full name <span class="required">*</span></label>
+        <input type="text" name="name" required>
+    </div>
+    <div class="field">
+        <label>Email <span class="required">*</span></label>
+        <input type="email" name="email" required>
+    </div>
+    <div class="field">
+        <label>Phone <span class="required">*</span></label>
+        <input type="tel" name="phone" required>
+    </div>
+    <div class="field">
+        <label>Company</label>
+        <input type="text" name="company">
+    </div>
+    <div class="field">
+        <label>Visiting <span class="required">*</span></label>
+        <select name="host_id" required>
+            <option value="" disabled selected>Select a host</option>
+            {% for host in hosts %}
+            <option value="{{ host.id }}">{{ host.name }} — {{ host.department or "—" }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="field">
+        <label>Purpose of visit</label>
+        <textarea name="purpose"></textarea>
+    </div>
+    <button class="btn" type="submit">Generate pass</button>
+</form>
+{% endblock %}

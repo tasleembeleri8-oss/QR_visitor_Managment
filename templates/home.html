@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Gatepass — Visitor Management{% endblock %}
+{% block content %}
+<div class="eyebrow">Front desk / checkpoint</div>
+<h1>Every visitor,<br>one scannable pass.</h1>
+<p class="lede">Register a visit online or at the desk, get a QR pass instantly, and scan it at the gate to check in and out — no paper logbook.</p>
+
+<div class="choice-grid">
+    <a class="choice-card" href="{{ url_for('register') }}">
+        <div class="tag">Visitors</div>
+        <h3>Register your visit</h3>
+        <p>Fill in your details, choose who you're meeting, and get your QR pass by email.</p>
+        <div class="go">Register now →</div>
+    </a>
+    <a class="choice-card" href="{{ url_for('staff_login') }}">
+        <div class="tag">Front desk / security</div>
+        <h3>Staff login</h3>
+        <p>Scan passes at the gate, register walk-in visitors, and view the live visitor log.</p>
+        <div class="go">Sign in →</div>
+    </a>
+</div>
+{% endblock %}

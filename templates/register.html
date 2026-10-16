@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Register your visit{% endblock %}
+{% block content %}
+<div class="eyebrow">Step 1 of 1</div>
+<h1>Register your visit</h1>
+<p class="lede">Takes under a minute. You'll get a QR pass by email — bring it up on your phone or print it.</p>
+
+<form class="form-card" method="POST">
+    <div class="field">
+        <label>Full name <span class="required">*</span></label>
+        <input type="text" name="name" required>
+    </div>
+    <div class="field">
+        <label>Email <span class="required">*</span></label>
+        <input type="email" name="email" required>
+    </div>
+    <div class="field">
+        <label>Phone <span class="required">*</span></label>
+        <input type="tel" name="phone" required>
+    </div>
+    <div class="field">
+        <label>Company</label>
+        <input type="text" name="company">
+    </div>
+    <div class="field">
+        <label>Who are you visiting? <span class="required">*</span></label>
+        <select name="host_id" required>
+            <option value="" disabled selected>Select a host</option>
+            {% for host in hosts %}
+            <option value="{{ host.id }}">{{ host.name }} — {{ host.department or "—" }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="field">
+        <label>Purpose of visit</label>
+        <textarea name="purpose" placeholder="e.g. Interview, delivery, meeting..."></textarea>
+    </div>
+    <button class="btn" type="submit">Get my QR pass</button>
+</form>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Visitor log{% endblock %}
+{% block content %}
+<div class="dash-header">
+    <div>
+        <div class="eyebrow">Live log</div>
+        <h1 style="font-size:1.8rem; margin-bottom:0;">Visitor activity</h1>
+    </div>
+    <div class="filter-pills">
+        <a href="{{ url_for('dashboard', status='all') }}" class="{{ 'active' if status_filter == 'all' }}">All</a>
+        <a href="{{ url_for('dashboard', status='pending') }}" class="{{ 'active' if status_filter == 'pending' }}">Pending</a>
+        <a href="{{ url_for('dashboard', status='checked_in') }}" class="{{ 'active' if status_filter == 'checked_in' }}">Checked in</a>
+        <a href="{{ url_for('dashboard', status='checked_out') }}" class="{{ 'active' if status_filter == 'checked_out' }}">Checked out</a>
+    </div>
+</div>
+
+{% if visits %}
+<table class="visit-table">
+    <thead>
+        <tr>
+            <th>Visitor</th>
+            <th>Host</th>
+            <th>Purpose</th>
+            <th>Status</th>
+            <th>Check-in</th>
+            <th>Check-out</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for visit in visits %}
+        <tr>
+            <td>{{ visit.visitor.name }}<br><span style="color:var(--text-faint); font-size:0.78rem;">{{ visit.visitor.phone }}</span></td>
+            <td>{{ visit.host.name }}</td>
+            <td>{{ visit.purpose or "—" }}</td>
+            <td><span class="status-pill status-{{ visit.status }}">{{ visit.status.replace("_", " ") }}</span></td>
+            <td>{{ visit.check_in_time.strftime("%d %b, %H:%M") if visit.check_in_time else "—" }}</td>
+            <td>{{ visit.check_out_time.strftime("%d %b, %H:%M") if visit.check_out_time else "—" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="empty-state">No visits recorded yet.</div>
+{% endif %}
+{% endblock %}

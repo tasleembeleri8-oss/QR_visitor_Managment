@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Your visitor pass{% endblock %}
+{% block content %}
+<div class="eyebrow">Registration confirmed</div>
+<h1>You're all set{% if not staff_view %}, {{ visit.visitor.name.split(" ")[0] }}{% endif %}.</h1>
+<p class="lede">
+    {% if staff_view %}
+        A pass has been created and emailed to {{ visit.visitor.name }}.
+    {% else %}
+        We've emailed a copy of this pass to {{ visit.visitor.email }}. Show this QR code at the gate to check in.
+    {% endif %}
+</p>
+
+<div class="pass-wrap">
+    <div class="pass">
+        <span class="status-chip">Pending check-in</span>
+        <div class="qr-frame">
+            <span class="corner corner-tl"></span>
+            <span class="corner corner-tr"></span>
+            <span class="corner corner-bl"></span>
+            <span class="corner corner-br"></span>
+            <img src="{{ url_for('static', filename=visit.qr_path) }}" alt="Visitor QR pass">
+        </div>
+        <div class="visitor-name">{{ visit.visitor.name }}</div>
+        <div class="visitor-meta">Visiting {{ visit.host.name }}{% if visit.host.department %} · {{ visit.host.department }}{% endif %}</div>
+        {% if visit.purpose %}<div class="visitor-meta">{{ visit.purpose }}</div>{% endif %}
+        <div class="token">TOKEN {{ visit.token }}</div>
+    </div>
+</div>
+
+{% if staff_view %}
+<p style="text-align:center; margin-top:24px;">
+    <a class="btn btn-secondary" href="{{ url_for('staff_register_visit') }}">Register another visitor</a>
+</p>
+{% endif %}
+{% endblock %}

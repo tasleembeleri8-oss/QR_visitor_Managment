@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Scan pass{% endblock %}
+{% block content %}
+<div class="eyebrow">Checkpoint</div>
+<h1>Scan a visitor pass</h1>
+<p class="lede">Works with a laptop webcam or a phone camera — point it at the visitor's QR code.</p>
+
+<div class="scan-shell">
+    <div class="scan-mode-toggle">
+        <button id="mode-checkin" class="active">Check in</button>
+        <button id="mode-checkout">Check out</button>
+    </div>
+
+    <div class="scan-box"><div id="reader"></div></div>
+
+    <div id="scan-result"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+<script src="{{ url_for('static', filename='js/scanner.js') }}"></script>
+{% endblock %}
